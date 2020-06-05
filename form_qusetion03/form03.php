@@ -8,10 +8,10 @@
 			<h2>FORM</h2>
 
 			<br><br>
-			INPUT_SAMPLE: <input type="text" name="name" value="<?php echo $_GET['name']; ?>"><br>
-			INPUT_A: <input type="text" name="input_name_a" value="<?php echo $_GET['input_name_a']; ?>"><br>
-			INPUT_B: <input type="text" name="input_name_b" value="<?php echo $_GET['input_name_b']; ?>"><br>
-			INPUT_C: <input type="text" name="input_name_c" value="<?php echo $_GET['input_name_c']; ?>"><br>
+			INPUT_SAMPLE: <input type="text" name="name" value=""><br>
+			INPUT_A: <input type="text" name="input_name_a" value=""><br>
+			INPUT_B: <input type="text" name="input_name_b" value=""><br>
+			INPUT_C: <input type="text" name="input_name_c" value=""><br>
 
 			<br><br>
 			<input type="radio" name="radio_name" value="RADIO_A">RADIO_A<br>
