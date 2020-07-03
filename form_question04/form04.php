@@ -1,3 +1,7 @@
+<?php
+	$json = json_encode($_GET);
+?>
+
 <!DOCTYPE html>
 <html>
 	<body>
@@ -20,9 +24,9 @@
 
 			<br><br>
 
-			<input type="checkbox" name="check_name" value="CHECK_A">CHECK_A<br>
-			<input type="checkbox" name="check_name" value="CHECK_B">CHECK_B<br>
-			<input type="checkbox" name="check_name" value="CHECK_C">CHECK_C<br>
+			<input type="checkbox" name="check_name[]" value="CHECK_A">CHECK_A<br>
+			<input type="checkbox" name="check_name[]" value="CHECK_B">CHECK_B<br>
+			<input type="checkbox" name="check_name[]" value="CHECK_C">CHECK_C<br>
 
 			<br><br>
 			<select name="select_name">
@@ -33,76 +37,51 @@
 			<br><br>
 			<br><br>
 
+			<div id="values" style="display: none;">
+				<?php echo $json; ?>
+			</div>
+
 			<button type="submit">SUBMIT</button>
 		</form>
 
 		<script type="text/javascript">
-			window.addEventListener('DOMContentLoaded', function() {
-				setRadioValue('radio_name', getHrefParam('radio_name'));
-				setCheckBoxValue('check_name', getHrefParams('check_name'));
-				setSelectValue('select_name', getHrefParam('select_name'));
-			});
-
-			var getHrefParam = function(key) {
-				if (location.search === "") {
-					return false;
-				}
-				var paramStr = location.search.split('?')[1];
-				var params = paramStr.split('&');
-				for (var i = 0; i < params.length; i++) {
-					var paramKey = params[i].split('=')[0];
-					if (paramKey === key) {
-						return params[i].split('=')[1];
-					}
-				}
-			};
-
-			var getHrefParams = function(key) {
-				if (location.search === "") {
-					return false;
-				}
-				var paramStr = location.search.split('?')[1];
-				var params = paramStr.split('&');
-				var paramAry = [];
-				for (var i = 0; i < params.length; i++) {
-					var paramKey = params[i].split('=')[0];
-					if (paramKey === key) {
-						paramAry[i] = params[i].split('=')[1];
-					}
-				}
-				return paramAry;
-			};
+			var valStr = document.getElementById('values').textContent;
+			var valArr = JSON.parse(valStr);
 
 			var setRadioValue = function(name, value) {
-			  var radios = document.getElementsByName(name);
-			  for (var i = 0; i < radios.length; i++) {
-			    var opt = radios[i];
-			    if (opt.value === value) {
-			      opt.checked = true;
-			      break;
-			    }
-			  }
+				var radios = document.getElementsByName(name);
+				for (var i = 0; i < radios.length; i++) {
+					var opt = radios[i];
+					if (opt.value === value) {
+						opt.checked = true;
+						break;
+					}
+				}
 			};
 
 			var setCheckBoxValue = function(name, values) {
-			  var boxes = document.getElementsByName(name);
-			  for (var i = 0; i < boxes.length; i++) {
-			    var opt = boxes[i];
-			    if (values.includes(opt.value)) {
-			      opt.checked = true;
-			    }
-			  }
+				var boxes = document.getElementsByName(name);
+				for (var i = 0; i < boxes.length; i++) {
+					var opt = boxes[i];
+					if (values.includes(opt.value)) {
+						opt.checked = true;
+					}
+				}
 			};
 
 			var setSelectValue = function(name, value) {
-			  var select = document.getElementsByName(name)[0];
-			  for (var i = 0; i < select.children.length; i++) {
-			    var opt = select.children[i];
-			    if (opt.value === value) {
-			      opt.selected = true;
-			    }
-			  }
+				var select = document.getElementsByName(name)[0];
+				for (var i = 0; i < select.children.length; i++) {
+					var opt = select.children[i];
+					if (opt.value === value) {
+						opt.selected = true;
+					}
+				}
 			};
+
+			setRadioValue('radio_name', valArr.radio_name);
+			setCheckBoxValue('check_name[]', valArr.check_name);
+			setSelectValue('select_name', valArr.select_name);
 		</script>
 	</body>
 </html>
